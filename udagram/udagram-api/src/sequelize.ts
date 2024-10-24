@@ -9,4 +9,11 @@ export const sequelize = new Sequelize({
 
   dialect: "postgres",
   storage: ":memory:",
+  port: 5432,
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
 });

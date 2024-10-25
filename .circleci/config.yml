@@ -25,6 +25,12 @@ jobs:
           command: |
             cd udagram/udagram-api  # Ensure you're in the backend directory
             npm install
+      # Lint the frontend
+      - run:
+          name: Front-End Lint
+          command: |
+            cd udagram/udagram-frontend
+            npm run lint
       # Build the frontend app
       - run:
           name: Front-End Build

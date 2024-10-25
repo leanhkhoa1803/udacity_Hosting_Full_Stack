@@ -10,7 +10,7 @@ jobs:
       - image: "cimg/node:14.15"
     steps:
       - node/install:
-          node-version: '14.15'
+          node-version: "14.15"
       - checkout
       # Install dependencies for the frontend app
       - run:
@@ -36,6 +36,7 @@ jobs:
           name: API Build
           command: |
             cd udagram/udagram-api
+            ls -la
             npm run build
 
   deploy:
@@ -43,7 +44,7 @@ jobs:
       - image: "cimg/base:stable"
     steps:
       - node/install:
-          node-version: '14.15'
+          node-version: "14.15"
       - eb/setup
       - aws-cli/setup
       - checkout

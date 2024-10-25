@@ -7,10 +7,10 @@ orbs:
 jobs:
   build:
     docker:
-      - image: "cimg/node:16.15"
+      - image: "cimg/node:14.15"
     steps:
       - node/install:
-          node-version: "16.15"
+          node-version: "14.15"
       - checkout
       # Checkout and pull
       - run:
@@ -26,6 +26,7 @@ jobs:
           command: |
             cd udagram/udagram-frontend  # Ensure you're in the frontend directory
             npm install
+            npm install typescript@">=3.4.0 and <3.6.0" --save-dev
       # Install dependencies for the backend API
       - run:
           name: Install API Dependencies
@@ -51,7 +52,7 @@ jobs:
       - image: "cimg/base:stable"
     steps:
       - node/install:
-          node-version: "16.15"
+          node-version: "14.15"
       - eb/setup
       - aws-cli/setup
       - checkout

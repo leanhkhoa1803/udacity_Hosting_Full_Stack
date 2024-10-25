@@ -1,80 +1,31 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/configuration-reference
 version: 2.1
-orbs:
-  node: circleci/node@5.0.2
-  eb: circleci/aws-elastic-beanstalk@2.0.1
-  aws-cli: circleci/aws-cli@3.1.1
 
+# Define a job to be invoked later in a workflow.
+# See: https://circleci.com/docs/jobs-steps/#jobs-overview & https://circleci.com/docs/configuration-reference/#jobs
 jobs:
-  build:
+  say-hello:
+    # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
+    # See: https://circleci.com/docs/executor-intro/ & https://circleci.com/docs/configuration-reference/#executor-job
     docker:
-      - image: "cimg/node:14.15"
-    steps:
-      - node/install:
-          node-version: "14.15"
-      - checkout
-      # Checkout and pull
-      - run:
-          name: Fetch All Files
-          command: |
-            git fetch --all
-            git checkout main
-            git pull origin main
+      # Specify the version you desire here
+      # See: https://circleci.com/developer/images/image/cimg/base
+      - image: cimg/base:current
 
-      # Install dependencies for the frontend app
-      - run:
-          name: Install Front-End Dependencies
-          command: |
-            cd udagram/udagram-frontend  # Ensure you're in the frontend directory
-            npm install
-            npm install typescript@">=3.4.0 and <3.6.0" --save-dev
-      # Install dependencies for the backend API
-      - run:
-          name: Install API Dependencies
-          command: |
-            cd udagram/udagram-api  # Ensure you're in the backend directory
-            npm install
-      # Build the frontend app
-      - run:
-          name: Front-End Build
-          command: |
-            cd udagram/udagram-frontend
-            npm run build
-      # Build the backend API
-      - run:
-          name: API Build
-          command: |
-            cd udagram/udagram-api
-            ls -la
-            npm run build
-
-  deploy:
-    docker:
-      - image: "cimg/base:stable"
+    # Add steps to the job
+    # See: https://circleci.com/docs/jobs-steps/#steps-overview & https://circleci.com/docs/configuration-reference/#steps
     steps:
-      - node/install:
-          node-version: "14.15"
-      - eb/setup
-      - aws-cli/setup
+      # Checkout the code as the first step.
       - checkout
       - run:
-          name: Deploy App
-          command: |
-            echo "Deploying frontend and backend"
-            cd udagram/udagram-frontend && npm run deploy
-            cd udagram/udagram-api && npm run deploy
+          name: "Say hello"
+          command: "echo Hello, World!"
 
+# Orchestrate jobs using workflows
+# See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
 workflows:
-  udagram:
+  say-hello-workflow: # This is the name of the workflow, feel free to change it to better match your workflow.
+    # Inside the workflow, you define the jobs you want to run.
     jobs:
-      - build
-      - hold:
-          filters:
-            branches:
-              only:
-                - main
-          type: approval
-          requires:
-            - build
-      - deploy:
-          requires:
-            - hold
+      - say-hello

@@ -12,6 +12,14 @@ jobs:
       - node/install:
           node-version: "14.15"
       - checkout
+      # Checkout and pull
+      - run:
+          name: Fetch All Files
+          command: |
+            git fetch --all
+            git checkout main
+            git pull origin main
+
       # Install dependencies for the frontend app
       - run:
           name: Install Front-End Dependencies

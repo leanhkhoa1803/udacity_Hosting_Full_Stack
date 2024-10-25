@@ -26,7 +26,6 @@ jobs:
           command: |
             cd udagram/udagram-frontend  # Ensure you're in the frontend directory
             npm install
-            npm install typescript@">=3.4.0 and <3.6.0" --save-dev
       # Install dependencies for the backend API
       - run:
           name: Install API Dependencies

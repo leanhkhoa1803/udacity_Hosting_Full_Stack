@@ -68,4 +68,4 @@ Provision the necessary AWS services needed for running the application:
 
 ## Front-End link:
 
-- The link of UI : http://udagram-dev-api.s3-website-us-east-1.amazonaws.com/home
+- The link of UI : http://udagram-dev-api.s3-website-us-east-1.amazonaws.com

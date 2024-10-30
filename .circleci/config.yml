@@ -66,6 +66,7 @@ jobs:
           command: |
             aws configure set aws_access_key_id $AWS_EB_CLI_ACCESS_KEY_ID --profile eb-cli
             aws configure set aws_secret_access_key $AWS_EB_CLI_SECRET_ACCESS_KEY --profile eb-cli
+            aws configure set aws_session_token $AWS_EB_CLI_SESSION_TOKEN --profile eb-cli
             aws configure set region us-east-1 --profile eb-cli
       - run:
           name: Deploy Backend
